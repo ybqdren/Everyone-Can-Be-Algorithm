@@ -1,49 +1,35 @@
 /* Create by ZhaoWen */
 package binary_search
 
-import (
-	"fmt"
-	"math"
-)
+/**
+实现二分查找
+@parm arr 被查找的数组对象
+@parm key 要查找的数字
+@return 返回key的位置
+*/
+func binary_search(arr []int, key int) int {
+	var result int
+	var mid int
+	var low int = 0
+	var high int = len(arr) - 1
 
-func addToArrayForm(A []int, K int) []int {
-	var sum int
-	var count int = int(math.Pow10(len(A) - 1))
+	for low < high {
+		mid = (low + high) / 2
 
-	for i := range A {
-		sum += A[i] * count
-		count /= 10
+		if arr[mid] > key {
+			high = mid - 1
+		} else if arr[mid] < key {
+			low = mid + 1
+		} else if arr[mid] == key {
+			result = mid
+			break
+		}
 	}
-	sum += K
-
-	fmt.Println(sum)
-	fmt.Println(sum % 100 % 10)
-
-	/**
-	个 sum%100%10
-	十 sum % 100/10
-	百 sum%1000/100
-	千 sum%10000/1000
-	*/
-	fmt.Println(count)
-
-	count = 100
-
-	//  个位
-	a := sum % count % count % 10
-	b := sum % count / count / 10
-	count *= 10
-	c := sum % count / (count / 10)
-	count *= 10
-	d := sum % count / (count / 10)
-
-	fmt.Println(d, c, b, a)
-	var resultArr = []int{}
-
-	resultArr = append(resultArr, d)
-	resultArr = append(resultArr, c)
-	resultArr = append(resultArr, b)
-	resultArr = append(resultArr, a)
-
-	return resultArr
+	return result
 }
+
+/*func main(){
+	var arr = []int{1,2,3,5,7,8,9,10}
+	i := binary_search(arr,9)
+	fmt.Println("查找到的值：",i)
+}*/
